@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">EventRegistration</string>
+    <string name="action_settings">Настройки</string>
+
+    <string name="enter_contract_number">Введите номер соглашения:</string>
+
+    <string name="confirm_button">Подтвердить</string>
+    <string name="ok">Да</string>
+    <string name="cancel">Отмена</string>
+    <string name="back">Назад</string>
+    <string name="next">Далее</string>
+    <string name="error">Ошибка</string>
+
+
+
+    <string name="person_confirm">Проверьте правильность введенных данных</string>
+    <string name="person_found">Найдено соглашение</string>
+    <string name="person_not_found">Соглашение не найдено</string>
+    <string name="person_name">ФИО</string>
+    <string name="person_contract">Номер соглашения</string>
+
+
+    <string name="tickets_add_person">Добавить участника</string>
+
+    <string name="register">Зарегистрируйтесь</string>
+
+    <string name="register_info">Вы выбрали следующих участников. Им будут присвоены места рядом.</string>
+
+
+    <string name="exit">Выход</string>
+
+
+    <string name="password">Пароль</string>
+
+
+    <string name="options">Настройки</string>
+    <string name="server_address">Адрес сервера</string>
+    <string name="ip_has_changed">IP адрес изменен</string>
+    <string name="server_not_found">Сервер не найден</string>
+
+    <string name="wrong_password">Неверный пароль</string>
+
+
+</resources>
