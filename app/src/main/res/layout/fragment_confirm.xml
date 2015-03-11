@@ -19,18 +19,20 @@
         android:layout_marginTop="50dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textSize="@dimen/action" />
+        android:textSize="@dimen/action"
+        android:gravity="center" />
 
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/confirmPersonName"
         android:layout_marginTop="50dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:textSize="@dimen/button_size"
-        android:text="Confirm"/>
+        android:text="Confirm"
+        android:gravity="center" />
 
 
     <ImageView

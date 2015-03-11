@@ -27,21 +27,6 @@
         android:layout_alignParentLeft="true"
         android:layout_marginRight="@dimen/list_item_padding" />
 
-    <!-- Person Contract -->
-    <TextView
-        android:id="@+id/ticket_contract"
-
-        android:layout_width="0dip"
-        android:layout_weight="0"
-        android:layout_height="wrap_content"
-
-        android:layout_alignTop="@+id/thumbnail"
-        android:layout_toRightOf="@+id/thumbnail"
-        android:textSize="@dimen/title"
-        android:textStyle="bold"
-        android:text="Contract"
-        android:paddingLeft="@dimen/list_item_padding" />
-
     <!-- Person Name -->
     <TextView
 
@@ -53,7 +38,6 @@
         android:layout_alignTop="@+id/thumbnail"
         android:layout_toRightOf="@+id/thumbnail"
         android:textSize="@dimen/title"
-        android:textStyle="bold"
         android:text="NAME"
         android:paddingLeft="@dimen/list_item_padding" />
 

@@ -1,13 +1,16 @@
 package com.siberianhealth.eventregistration.fragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.siberianhealth.eventregistration.Model;
@@ -20,7 +23,7 @@ import com.siberianhealth.eventregistration.tickets.Ticket;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import android.provider.Settings.Secure;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,6 +85,7 @@ public class FragmentTickets extends Fragment {
 
 
         ListView listView = (ListView) rootView.findViewById(R.id.list);
+
         adapter = new CustomListAdapter(getActivity(), ticketList.ITEMS);
         listView.setAdapter(adapter);
 
@@ -108,13 +112,8 @@ public class FragmentTickets extends Fragment {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                String list = ticketList.getSelected();
+                onRegister();
 
-                boolean isLand = model.LandTickets(list);
-
-                ticketList.reloadTickets();
-                adapter.notifyDataSetChanged();
-                //mListener.OnTicketsExit();
                 return;
 
             }
@@ -137,6 +136,72 @@ public class FragmentTickets extends Fragment {
 
         return rootView;
     }
+
+    private void onRegister(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.attention)
+                .setMessage(getString(R.string.attention_message))
+
+                        //.setIcon(R.drawable.ic_android_cat)
+                .setCancelable(false)
+                .setNegativeButton(R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                dialog.cancel();
+                            }
+                        })
+                .setPositiveButton(R.string.confirm_button,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                String list = ticketList.getSelected();
+
+                                boolean isLand = model.LandTickets(list);
+
+                                ticketList.reloadTickets();
+
+                                adapter.notifyDataSetChanged();
+
+                                printTickets();
+
+                                dialog.cancel();
+                            }
+                        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
+    private void printTickets(){
+
+        String android_id = Secure.getString(getActivity().getContentResolver(),
+                Secure.ANDROID_ID);
+
+        for( Ticket ticket : ticketList.ITEMS){
+
+            model.PrintTickets(android_id, ticket.Id());
+        }
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.attention)
+                .setMessage((R.string.print_message))
+                .setCancelable(false)
+                .setPositiveButton(R.string.confirm_button,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                dialog.cancel();
+                            }
+                        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
 /*
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

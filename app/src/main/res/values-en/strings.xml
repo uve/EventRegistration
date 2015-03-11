@@ -40,6 +40,8 @@
 
     <string name="wrong_password">Wrong Password</string>
 
+    <string name="attention">Attention!</string>
+    <string name="attention_message">Attention! After registration you will not be able to sit someone else nearby</string>
 
-
+    <string name="print_message">Your ticket is printing...</string>
 </resources>

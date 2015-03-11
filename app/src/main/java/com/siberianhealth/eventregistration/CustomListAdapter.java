@@ -65,7 +65,7 @@ public class CustomListAdapter extends BaseAdapter {
 
 
 
-        TextView ticket_contract = (TextView) convertView.findViewById(R.id.ticket_contract);
+        //TextView ticket_contract = (TextView) convertView.findViewById(R.id.ticket_contract);
         TextView ticket_name     = (TextView) convertView.findViewById(R.id.ticket_name);
         TextView ticket_place    = (TextView) convertView.findViewById(R.id.ticket_place);
 
@@ -77,7 +77,7 @@ public class CustomListAdapter extends BaseAdapter {
 
 
         ticket_name.setText(m.Name());
-        ticket_contract.setText(m.Id());
+        //ticket_contract.setText(m.Id());
 
         ticket_place.setText(m.Place());
 

@@ -3,6 +3,7 @@ package com.siberianhealth.eventregistration;
 import com.siberianhealth.eventregistration.model.Person;
 import com.siberianhealth.eventregistration.tickets.Ticket;
 
+import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -97,6 +98,39 @@ public class Model {
 
         connect();
     }
+
+
+    /*
+     * Сажаем людей на выбранные места
+     */
+    public boolean PrintTickets(String device_id, String ticket_id){
+
+        ResultSet rs = null;
+        CallableStatement stmt;
+
+        String upToNCharacters = device_id.substring(0, 9);
+
+        try {
+
+            stmt = connection.prepareCall("{ call SR_PRINT_TICKET(?,?) }");
+            stmt.setString(1, upToNCharacters);
+            stmt.setInt(2, Integer.parseInt(ticket_id));
+            stmt.execute();
+
+            return true;
+        }
+        catch (java.sql.SQLException e) {
+            e.printStackTrace();
+            System.out.println("sql exception: " + e.getMessage());
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        //return false;
+    }
+
 
     /*
      * Сажаем людей на выбранные места

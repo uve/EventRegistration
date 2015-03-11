@@ -35,6 +35,7 @@ public class FragmentFind extends Fragment {
     private static final String TAG = "FragmentFind";
 
     private static final Integer CONTRACT_MIN_LENGTH = 6;
+    private static final Integer CONTRACT_MAX_LENGTH = 9;
 
 
     private static Model model = Model.getInstance();
@@ -101,18 +102,12 @@ public class FragmentFind extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_find, container, false);
 
         editText = (EditText) rootView.findViewById(R.id.editText);
-
-
         buttonBack = (Button) rootView.findViewById(R.id.buttonBack);
-
-
 
         langEN = (LinearLayout) rootView.findViewById(R.id.langEN);
         langRU = (LinearLayout) rootView.findViewById(R.id.langRU);
 
         buttonOptions = (ImageView) rootView.findViewById(R.id.buttonOptions);
-
-
 
         if (ListTickets.isEmpty()){
             buttonBack.setVisibility(View.GONE);
@@ -149,7 +144,7 @@ public class FragmentFind extends Fragment {
 
                 String contract = editText.getText().toString();
 
-                if (contract.length() < CONTRACT_MIN_LENGTH){
+                if ((contract.length() < CONTRACT_MIN_LENGTH) || (contract.length() > CONTRACT_MAX_LENGTH)){
                     buttonNext.setEnabled(false);
                 }
                 else{
@@ -176,7 +171,6 @@ public class FragmentFind extends Fragment {
                     Log.d(TAG, "enter_key_called");
 
                     FindContract();
-
                 }
                 return false;
             }
@@ -300,8 +294,8 @@ public class FragmentFind extends Fragment {
         final AlertDialog.Builder alert = new AlertDialog.Builder(self);
 
         String ip = model.getServerIP();
-        alert.setTitle(R.string.options);
-        alert.setMessage(R.string.server_address + ": " + ip);
+        alert.setTitle(getString(R.string.options));
+        alert.setMessage(getString(R.string.server_address) + ": " + ip);
 
 
 
@@ -311,7 +305,7 @@ public class FragmentFind extends Fragment {
 
         alert.setView(input);
 
-        alert.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 Editable value = input.getText();
 
@@ -319,7 +313,7 @@ public class FragmentFind extends Fragment {
                     model.setServerIP(value.toString());
 
                     new AlertDialog.Builder(self)
-                            .setMessage(R.string.ip_has_changed)
+                            .setMessage(getString(R.string.ip_has_changed))
                             .setCancelable(false)
                             .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                                 @Override
