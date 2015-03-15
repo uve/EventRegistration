@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
@@ -43,7 +44,6 @@ public class FragmentFind extends Fragment {
     private OnListenerPersonFound mListener;
 
 
-
     private EditText editText = null;
     private Button buttonNext = null;
     private Button buttonBack = null;
@@ -51,8 +51,6 @@ public class FragmentFind extends Fragment {
     private LinearLayout langEN = null;
     private LinearLayout langRU = null;
     private ImageView buttonOptions = null;
-
-
 
 
     public FragmentFind() {
@@ -180,11 +178,9 @@ public class FragmentFind extends Fragment {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
-
                 FindContract();
 
                 return;
-
             }
         });
 
@@ -295,7 +291,12 @@ public class FragmentFind extends Fragment {
 
         String ip = model.getServerIP();
         alert.setTitle(getString(R.string.options));
-        alert.setMessage(getString(R.string.server_address) + ": " + ip);
+
+
+        String android_id = Settings.Secure.getString(getActivity().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        alert.setMessage(getString(R.string.server_address) + ": " + ip + "\n" + getString(R.string.device_id) + ": " + android_id.substring(0, 9));
 
 
 

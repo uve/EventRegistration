@@ -105,6 +105,14 @@ public class Model {
      */
     public boolean PrintTickets(String device_id, String ticket_id){
 
+        try{
+            connect();
+        }
+        catch (Exception e){
+
+        }
+
+
         ResultSet rs = null;
         CallableStatement stmt;
 
@@ -137,6 +145,15 @@ public class Model {
      */
     public boolean LandTickets(String tickets){
 
+        try{
+            connect();
+        }
+        catch (Exception e){
+
+        }
+
+
+
         ResultSet rs = null;
         CallableStatement stmt;
 
@@ -161,6 +178,14 @@ public class Model {
      * Проверяем, есть ли билет на мероприятие
      */
     public ArrayList<Ticket> GetTickets(int id){
+
+        try{
+            connect();
+        }
+        catch (Exception e){
+
+        }
+
 
         ArrayList<Ticket> results = new ArrayList<Ticket>();
 
@@ -209,41 +234,24 @@ public class Model {
     /*
      * Проверяем, есть ли билет на мероприятие
      */
-    public TicketStatus CheckTicket(int id){
+    public void CheckTicket(int id) throws Exception {
 
-        //ResultSet results = null;
-
-        try {
-
-            CallableStatement stmt = connection.prepareCall("{ call SR_CHECK_TICKET(?) }");
-
-            stmt.setInt(1, id);
-            stmt.execute();
-
-
-        } catch (java.sql.SQLException e) {
-
-            String type = parseException(e);
-
-            switch (type) {
-
-                case "E_NO_TICKETS":  return TicketStatus.E_NO_TICKETS;
-
-                case "E_TICKET_ALREADY_LANDED":  return TicketStatus.E_TICKET_ALREADY_LANDED;
-
-                default:
-                    return TicketStatus.E_TICKET_ERROR;
-            }
+        try{
+            connect();
+        }
+        catch (Exception e){
 
         }
 
-        return TicketStatus.TICKET_EXIST;
+        CallableStatement stmt = connection.prepareCall("{ call SR_CHECK_TICKET(?) }");
+
+        stmt.setInt(1, id);
+        stmt.execute();
+
     }
 
 
-
-
-    private String parseException(java.sql.SQLException e){
+    public String parseException(java.sql.SQLException e){
 
         showSQLException(e);
         String[] list = e.getMessage().split("\n");
@@ -254,6 +262,13 @@ public class Model {
 
     public Person getPerson(String contract) {
 
+
+        try{
+            connect();
+        }
+        catch (Exception e){
+
+        }
 
         ResultSet rs = null;
 

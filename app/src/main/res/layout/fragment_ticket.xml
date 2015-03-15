@@ -22,8 +22,6 @@
 
 
 
-
-
     <TextView
         android:text="@string/register_info"
         android:layout_width="wrap_content"
@@ -36,25 +34,25 @@
 
 
 
-            <ListView
-                android:layout_marginTop="@dimen/margin_top"
-                android:id="@+id/list"
+        <ListView
+            android:layout_marginTop="@dimen/margin_top"
+            android:id="@+id/list"
 
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
 
 
-                android:divider="@color/list_divider"
-                android:dividerHeight="1dp"
-                android:listSelector="@drawable/list_row_selector"
-              />
+            android:divider="@color/list_divider"
+            android:dividerHeight="1dp"
+            android:listSelector="@drawable/list_row_selector"
+          />
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.5"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical" >
 
 
@@ -80,8 +78,6 @@
                 android:padding="@dimen/button_padding"
                 android:layout_marginTop="@dimen/margin_top"
                 android:gravity="center" />
-
-
 
             <Button
                 android:layout_width="wrap_content"

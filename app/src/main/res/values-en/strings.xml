@@ -16,8 +16,8 @@
     <string name="person_confirm">Please check person details</string>
     <string name="person_found">Contract found</string>
     <string name="person_not_found">Contract not found</string>
-    <string name="person_name">Name</string>
-    <string name="person_contract">Contract number</string>
+    <string name="person_name">Name:</string>
+    <string name="person_contract">Contract number:</string>
 
 
     <string name="tickets_add_person">Add new person</string>
@@ -44,4 +44,12 @@
     <string name="attention_message">Attention! After registration you will not be able to sit someone else nearby</string>
 
     <string name="print_message">Your ticket is printing...</string>
+    <string name="print">Print</string>
+
+    <string name="no_tickets">Ticket not found. Please contact support</string>
+    <string name="already_landed">A seat for this contract has been already reserved</string>
+    <string name="already_landed_first_time">A seat for this contract has been already reserved. Do you want to print the ticket?</string>
+
+    <string name="device_id">Device id</string>
+
 </resources>

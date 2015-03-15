@@ -23,16 +23,65 @@
         android:gravity="center" />
 
 
-    <TextView
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/confirmPersonName"
-        android:layout_marginTop="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="@dimen/button_size"
-        android:text="Confirm"
-        android:gravity="center" />
+        tools:context=".MainActivity$PlaceholderFragment"
+        android:orientation="horizontal"
+
+        android:layout_marginTop="@dimen/button_size"
+        android:gravity="top|left">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:textSize="@dimen/title"
+            android:layout_marginRight="@dimen/place"
+            android:layout_marginLeft="@dimen/place"
+            android:text="@string/person_contract" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/confirmPersonContract"
+            android:layout_alignParentTop="true"
+            android:textSize="@dimen/button_size"
+            android:text="Contract" />
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".MainActivity$PlaceholderFragment"
+        android:orientation="horizontal"
+
+        android:layout_marginTop="@dimen/button_size"
+        android:gravity="top|left">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:textSize="@dimen/title"
+            android:layout_marginRight="@dimen/place"
+            android:layout_marginLeft="@dimen/place"
+            android:text="@string/person_name" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/confirmPersonName"
+            android:layout_alignParentTop="true"
+            android:textSize="@dimen/button_size"
+            android:text="Name" />
+
+    </LinearLayout>
 
 
     <ImageView
@@ -77,6 +126,17 @@
 
     </LinearLayout>
 
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/print"
+        android:id="@+id/buttonConfirmPrint"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/button_size"
+        android:padding="@dimen/button_padding"
+        android:layout_margin="30dp"/>
 
 
 </LinearLayout>

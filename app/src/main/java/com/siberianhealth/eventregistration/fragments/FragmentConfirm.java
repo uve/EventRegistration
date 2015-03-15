@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,7 @@ public class FragmentConfirm extends Fragment {
     private String mContract;
 
     private Button buttonConfirmYes = null;
+    private Button buttonConfirmPrint = null;
 
 
     public static ListTickets ticketList = new ListTickets();
@@ -116,24 +118,30 @@ public class FragmentConfirm extends Fragment {
         final Person person = model.getPerson(mContract);
 
         TextView name = (TextView) rootView.findViewById(R.id.confirmPersonName);
+        TextView contract = (TextView) rootView.findViewById(R.id.confirmPersonContract);
 
         name.setText(person.Name());
+        contract.setText(person.Contract());
 
-        final Button buttonConfirmYes = (Button) rootView.findViewById(R.id.buttonNext);
+
+        buttonConfirmYes = (Button) rootView.findViewById(R.id.buttonNext);
+        buttonConfirmPrint = (Button) rootView.findViewById(R.id.buttonConfirmPrint);
+
         final Button buttonConfirmNo = (Button) rootView.findViewById(R.id.buttonBack);
+
+
+
+        CheckTicket(person);
 
 
         buttonConfirmYes.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
 
-
                 ticketList.addPerson(person);
-
                 mListener.OnPersonConfirmed();
 
                 return;
-
             }
         });
 
@@ -141,7 +149,16 @@ public class FragmentConfirm extends Fragment {
             public void onClick(View v) {
                  getFragmentManager().popBackStack();
                 return;
+            }
+        });
 
+        buttonConfirmPrint.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+
+                printTickets(person);
+
+                return;
             }
         });
 
@@ -151,6 +168,37 @@ public class FragmentConfirm extends Fragment {
         myImageView.setImageResource(R.drawable.photo);
 
         return rootView;
+    }
+
+
+    private void printTickets(Person person){
+
+        String android_id = Settings.Secure.getString(getActivity().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+
+        ArrayList<Ticket> tickets = model.GetTickets(person.Id());
+
+        for( Ticket ticket : tickets){
+
+            model.PrintTickets(android_id, ticket.Id());
+        }
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.attention)
+                .setMessage((R.string.print_message))
+                .setCancelable(false)
+                .setPositiveButton(R.string.confirm_button,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                dialog.cancel();
+                            }
+                        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
 
@@ -193,32 +241,83 @@ public class FragmentConfirm extends Fragment {
 
         Log.d(TAG, "CheckTicket for contract: " + person.Contract());
 
-        TicketStatus type = model.CheckTicket(person.Id());
+        buttonConfirmYes.setVisibility(View.INVISIBLE);
+        buttonConfirmPrint.setVisibility(View.INVISIBLE);
 
-        if (type == TicketStatus.TICKET_EXIST) {
+        try{
+            model.CheckTicket(person.Id());
 
-            GetTickets(person);
+            buttonConfirmYes.setVisibility(View.VISIBLE);
+            buttonConfirmPrint.setVisibility(View.INVISIBLE);
+
+            Log.d(TAG, "Ticket is ok");
+
+        } catch (java.sql.SQLException e) {
 
 
-            Log.d(TAG, "TICKET_EXIST");
+            String type = model.parseException(e);
+
+            switch (type) {
+
+                case "E_NO_TICKETS":
+
+                    buttonConfirmPrint.setVisibility(View.VISIBLE);
+
+                    ErrorMessage(getString(R.string.no_tickets));
+
+                    Log.d(TAG, "E_NO_TICKETS");
+                    break;
+
+                case "E_TICKET_ALREADY_LANDED":
+
+                    if (ticketList.isEmpty()){
+                        ErrorMessage(getString(R.string.already_landed_first_time));
+                        buttonConfirmPrint.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        ErrorMessage(getString(R.string.already_landed));
+                        buttonConfirmPrint.setVisibility(View.INVISIBLE);
+                    }
+
+
+                    Log.d(TAG, "E_NO_TICKETS");
+                    break;
+
+                default:
+
+
+                    break;
+            }
+
         }
-        else if (type == TicketStatus.E_NO_TICKETS) {
-
-            Log.d(TAG, "E_NO_TICKETS");
-        }
-        else if (type == TicketStatus.E_TICKET_ALREADY_LANDED) {
-
-            Log.d(TAG, "E_TICKET_ALREADY_LANDED");
-        }
-        else if (type == TicketStatus.E_TICKET_ERROR) {
-
-            Log.d(TAG, "E_TICKET_ERROR");
-        }
-        else {
+        catch (Exception e) {
 
         }
 
     }
+
+
+
+
+    public void ErrorMessage(String text){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(getString(R.string.error))
+                .setMessage("\n" + text + "\n")
+                        //.setIcon(R.drawable.ic_android_cat)
+                .setCancelable(false)
+                .setNegativeButton(getString(R.string.confirm_button),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
 
 
     public void GetTickets(final Person person) {

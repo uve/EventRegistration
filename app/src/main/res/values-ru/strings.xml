@@ -16,8 +16,8 @@
     <string name="person_confirm">Проверьте правильность введенных данных</string>
     <string name="person_found">Найдено соглашение</string>
     <string name="person_not_found">Соглашение не найдено</string>
-    <string name="person_name">ФИО</string>
-    <string name="person_contract">Номер соглашения</string>
+    <string name="person_name">ФИО:</string>
+    <string name="person_contract">Номер соглашения:</string>
 
 
     <string name="tickets_add_person">Добавить участника для выбора места рядом</string>
@@ -45,5 +45,12 @@
     <string name="attention_message">Внимание! После нажатия кнопки "Зарегистрироваться" посадить кого-либо ещё рядом с Вами будет уже нельзя!</string>
 
     <string name="print_message">Ваш билет отправлен на печать</string>
+    <string name="print">Печать</string>
+
+    <string name="no_tickets">Билет не найден. Пожалуйста обратитесь к системному администратору</string>
+    <string name="already_landed">У данного Партнера место уже выбрано</string>
+    <string name="already_landed_first_time">Вашему билету уже назначено место. Вы хотите распечатать билет?</string>
+
+    <string name="device_id">Номер устройства</string>
 
 </resources>
