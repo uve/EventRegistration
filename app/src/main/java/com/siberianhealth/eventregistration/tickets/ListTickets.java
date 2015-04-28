@@ -132,6 +132,18 @@ public class ListTickets {
         return sbStr.toString();
     }
 
+
+    public static boolean isNotPlaced(){
+
+        for (Ticket ticket : ITEMS){
+            if (!ticket.isPlaced()){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * A dummy item representing a piece of content.
      */

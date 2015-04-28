@@ -87,6 +87,7 @@ public class FragmentConfirm extends Fragment {
     public interface OnListenerPersonConfirmed {
         // TODO: Update argument type and name
         public void OnPersonConfirmed();
+        public void OnTicketsExit();
     }
 
 
@@ -194,6 +195,8 @@ public class FragmentConfirm extends Fragment {
                             public void onClick(DialogInterface dialog, int id) {
 
                                 dialog.cancel();
+
+                                mListener.OnTicketsExit();
                             }
                         });
 
@@ -201,7 +204,7 @@ public class FragmentConfirm extends Fragment {
         alert.show();
     }
 
-
+/*
     public void ConfirmDialog(final Person person){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -226,7 +229,7 @@ public class FragmentConfirm extends Fragment {
 
                                 dialog.cancel();
 
-                                CheckTicket(person);
+
                             }
                         });
 
@@ -235,7 +238,7 @@ public class FragmentConfirm extends Fragment {
 
 
     }
-
+*/
 
     public void CheckTicket(final Person person) {
 
@@ -271,8 +274,9 @@ public class FragmentConfirm extends Fragment {
                 case "E_TICKET_ALREADY_LANDED":
 
                     if (ticketList.isEmpty()){
-                        ErrorMessage(getString(R.string.already_landed_first_time));
+                        ErrorMessagWithPrint(getString(R.string.already_landed_first_time), person);
                         buttonConfirmPrint.setVisibility(View.VISIBLE);
+
                     }
                     else{
                         ErrorMessage(getString(R.string.already_landed));
@@ -294,6 +298,26 @@ public class FragmentConfirm extends Fragment {
 
         }
 
+    }
+
+
+    public void ErrorMessagWithPrint(String text, final Person person){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(getString(R.string.error))
+                .setMessage("\n" + text + "\n")
+                        //.setIcon(R.drawable.ic_android_cat)
+                .setCancelable(false)
+                .setNegativeButton(getString(R.string.confirm_button),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                                printTickets(person);
+                            }
+                        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
 

@@ -123,19 +123,50 @@ public class FragmentTickets extends Fragment {
         buttonExit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                ticketList.clear();
+                if (ticketList.isNotPlaced()) {
 
-                mListener.OnTicketsExit();
-                return;
+                    notPlaced();
+
+                } else {
+                    ticketList.clear();
+                    mListener.OnTicketsExit();
+                    return;
+                }
 
             }
         });
 
-
-
-
         return rootView;
     }
+
+
+    private void notPlaced(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.attention)
+                .setMessage(getString(R.string.attention_not_placed))
+                .setNegativeButton(R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                dialog.cancel();
+                            }
+                        })
+                .setPositiveButton(R.string.confirm_button,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                ticketList.clear();
+                                mListener.OnTicketsExit();
+
+                                dialog.cancel();
+                            }
+                        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
 
     private void onRegister(){
 

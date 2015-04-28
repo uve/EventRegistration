@@ -32,7 +32,7 @@ import java.util.ArrayList;
 
 public class Model {
 
-    private static final String IP_CHROME = "192.168.0.101";
+    private static final String IP_CHROME = "10.42.0.1";
     private static final String IP_DALAMBER = "192.168.0.42";
     private static String SERVER_IP = null;
 

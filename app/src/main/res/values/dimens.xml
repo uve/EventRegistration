@@ -20,7 +20,7 @@
 
     <dimen name="icon_padding">1dp</dimen>
 
-    <dimen name="margin_top">20dp</dimen>
+    <dimen name="margin_top">10dp</dimen>
 
     <dimen name="list_min_size">400dp</dimen>
     <dimen name="list_max_size">450dp</dimen>
